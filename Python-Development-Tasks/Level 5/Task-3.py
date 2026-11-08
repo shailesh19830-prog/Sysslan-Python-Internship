@@ -1,23 +1,27 @@
-import shutil
 import os
+import shutil
 
-def backup_folder(source_folder, backup_folder):
-    try:
-        # Check if source exists
-        if not os.path.exists(source_folder):
-            print("Source folder does not exist.")
-            return
+print("--- Starting Backup Process ---")
 
-        # If backup exists, remove it to create a fresh one
-        if os.path.exists(backup_folder):
-            shutil.rmtree(backup_folder)
-            
-        # Copy the entire directory
-        shutil.copytree(source_folder, backup_folder)
-        print(f"Successfully backed up '{source_folder}' to '{backup_folder}'.")
+# Define folder names
+source_folder = "MyProject"
+backup_folder = "Backup_MyProject"
+
+# 1. Check if source folder exists
+if not os.path.exists(source_folder):
+    print(f"Error: '{source_folder}' does not exist.")
+    print("Please create a 'MyProject' folder and add some files to it.")
+else:
+    print(f"Found source folder: {source_folder}")
+    
+    # 2. If an old backup exists , remove it to create a fresh one
+    if os.path.exists(backup_folder):
+        shutil.rmtree(backup_folder)
+        print("Old backup removed.")
         
-    except Exception as e:
-        print(f"Backup failed: {e}")
+    # 3. Copy the entire dirctory
+    shutil.copytree(source_folder, backup_folder)
+    print(f"Success! '{source_folder}' has been successfully backed up to '{backup_folder}'.")
+    print("Check the Explorer panel on the left to verify.")
 
-# To test: Create a folder named "MyProject" in your directory.
-# backup_folder("MyProject", "MyProject_Backup")
+print("--- Backup Process Finished ---")
